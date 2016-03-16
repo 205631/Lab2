@@ -4,7 +4,7 @@ import java.util.*;
 
 public abstract class Dictionary {
 
-	private List<String> dizionario;
+	public List<String> dizionario;
 	
 	
 	public Dictionary() {
@@ -23,10 +23,10 @@ public abstract class Dictionary {
 		
 		for(String s:inputTextList){
 	
-			if(dizionario.contains(s)){
-				ris.add(new RichWord(s,true));
+			if(dizionario.contains(s.trim())){
+				ris.add(new RichWord(s.trim(),true));
 			}else{
-				ris.add(new RichWord(s,false));
+				ris.add(new RichWord(s.trim(),false));
 			}
 		}
 		

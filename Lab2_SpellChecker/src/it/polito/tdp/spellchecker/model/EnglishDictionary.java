@@ -15,11 +15,8 @@ public class EnglishDictionary extends Dictionary {
 			while ((word = br.readLine()) != null) {
 			// Aggiungere word alla struttura dati
 				
-				
-				
-				
-				
-				
+				this.addParola(word.toLowerCase().trim());
+			
 			}
 			br.close();
 			} catch (IOException e){

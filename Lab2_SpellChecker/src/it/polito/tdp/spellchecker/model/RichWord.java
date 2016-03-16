@@ -51,6 +51,11 @@ public class RichWord {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "RichWord [parola=" + parola + ", corretta=" + corretta + "]";
+	}
 	
 	
 }
