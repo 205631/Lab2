@@ -4,22 +4,29 @@ import java.util.*;
 
 public abstract class Dictionary {
 
-	List<RichWord> dizionario= new ArrayList<RichWord>();
+	private List<String> dizionario;
 	
-	public abstract String loadDictionary();
+	
+	public Dictionary() {
+		dizionario= new ArrayList<String>();
+	}
+	
+	public void addParola(String s){
+		dizionario.add(s);
+	}
+
+	public abstract void loadDictionary();
 	
 	public List<RichWord> spellCheckText(List<String> inputTextList){
 		
 		List<RichWord> ris=new ArrayList<RichWord>();
 		
 		for(String s:inputTextList){
-			RichWord r=new RichWord(s,true);
-			
-			if(dizionario.contains(r)){
-				ris.add(r);
+	
+			if(dizionario.contains(s)){
+				ris.add(new RichWord(s,true));
 			}else{
-				r.setCorretta(false);
-				ris.add(r);
+				ris.add(new RichWord(s,false));
 			}
 		}
 		
