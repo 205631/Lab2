@@ -4,6 +4,9 @@ import java.io.*;
 
 public class EnglishDictionary extends Dictionary {
 
+	public String toString(){
+		return "English";
+	}
 	
 	@Override
 	public void loadDictionary() {

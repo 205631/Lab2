@@ -6,6 +6,10 @@ import java.io.IOException;
 
 public class ItalianDictionary extends Dictionary {
 
+	public String toString(){
+		return "Italian";
+	}
+	
 	@Override
 	public void loadDictionary() {
 	

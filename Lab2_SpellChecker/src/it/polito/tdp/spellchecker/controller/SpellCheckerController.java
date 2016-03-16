@@ -2,6 +2,8 @@ package it.polito.tdp.spellchecker.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import it.polito.tdp.spellchecker.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +12,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 public class SpellCheckerController {
+	
+	ItalianDictionary id;
+	EnglishDictionary ed;
+	
+	public void setModel(ItalianDictionary id,EnglishDictionary ed){
+		this.id=id;
+		this.ed=ed;
+		
+		cmbLang.getItems().add(id);
+        cmbLang.getItems().add(ed);
+	}
 
     @FXML
     private ResourceBundle resources;
@@ -18,7 +31,7 @@ public class SpellCheckerController {
     private URL location;
 
     @FXML
-    private ComboBox<?> cmbLang;
+    private ComboBox<Dictionary> cmbLang;
 
     @FXML
     private TextArea txtIn;
@@ -58,5 +71,7 @@ public class SpellCheckerController {
         assert btmClearText != null : "fx:id=\"btmClearText\" was not injected: check your FXML file 'SpellChecker.fxml'.";
         assert lblTime != null : "fx:id=\"lblTime\" was not injected: check your FXML file 'SpellChecker.fxml'.";
 
+        
+        
     }
 }
