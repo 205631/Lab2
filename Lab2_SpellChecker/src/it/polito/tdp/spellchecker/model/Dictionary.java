@@ -17,7 +17,6 @@ public abstract class Dictionary {
 		List<RichWord> ris=new ArrayList<RichWord>();
 		
 		for(String s:inputTextList){
-			//controllare se le stringhe s hanno dei caratteri di punteggiatura
 			
 			//aggiungo al risultato
 			if(dizionario.contains(s.trim())){

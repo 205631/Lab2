@@ -24,6 +24,7 @@ public class SpellCheckerController {
 		
 		cmbLang.getItems().add(id);
         cmbLang.getItems().add(ed);
+        cmbLang.setValue(id);
 	}
 
     @FXML
@@ -55,7 +56,9 @@ public class SpellCheckerController {
 
     @FXML
     void doClearText(ActionEvent event) {
-
+    	txtOut.setText("");
+    	txtIn.setText("");
+    	
     }
 
     @FXML
@@ -65,7 +68,7 @@ public class SpellCheckerController {
     	//prendo il testo e lo divido in stringhe separate dal carattere 
     	//di spaziatura e poi le crica in una lista
     	
-    	String s=txtIn.getText().toLowerCase();
+    	String s=txtIn.getText().replaceAll("\\p{Punct}", "").toLowerCase();
     	String[]p=s.split(" ");
     	
     	List<String> parole=new ArrayList<String>();
@@ -74,6 +77,9 @@ public class SpellCheckerController {
     		parole.add(p[i]);
     	}
     	//richiamo il controllo ortografico e stampo il risultato
+    	
+    	long t0=System.nanoTime();
+    	
     	if(temp instanceof ItalianDictionary){
         	temp.loadDictionary();
         	List<RichWord> l=temp.spellCheckText(parole);
@@ -97,11 +103,13 @@ public class SpellCheckerController {
         	}
         	txtOut.setText(s);
         }
-    	
+    	long t1=System.nanoTime();
     	if(pFalse==true){
     		lblErr.setText("Il testo contiene errori");
+    		lblTime.setText("Spell check completed in "+(double)((t1-t0)/1000000000)+" seconds");
     	}else{
     		lblErr.setText("Il testo è corretto");
+    		lblTime.setText("Spell check completed in "+(double)((t1-t0)/1000000000)+" seconds");
     	}
     	
     }
