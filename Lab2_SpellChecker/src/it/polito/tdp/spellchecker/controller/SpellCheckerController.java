@@ -1,6 +1,8 @@
 package it.polito.tdp.spellchecker.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.spellchecker.model.*;
@@ -58,7 +60,50 @@ public class SpellCheckerController {
 
     @FXML
     void doSpellCheck(ActionEvent event) {
-
+    	Dictionary temp=cmbLang.getValue();
+    	boolean pFalse=false;
+    	//prendo il testo e lo divido in stringhe separate dal carattere 
+    	//di spaziatura e poi le crica in una lista
+    	
+    	String s=txtIn.getText().toLowerCase();
+    	String[]p=s.split(" ");
+    	
+    	List<String> parole=new ArrayList<String>();
+    	
+    	for(int i=0;i<p.length;i++){
+    		parole.add(p[i]);
+    	}
+    	//richiamo il controllo ortografico e stampo il risultato
+    	if(temp instanceof ItalianDictionary){
+        	temp.loadDictionary();
+        	List<RichWord> l=temp.spellCheckText(parole);
+        	s="";
+        	for(RichWord r:l){
+        		if(r.isCorretta()==false && pFalse==false)
+        			pFalse=true;
+        		s+=r.getParola()+" ";
+        	}
+        	txtOut.setText(s);
+    	}
+    	
+    	if(temp instanceof EnglishDictionary){
+        	temp.loadDictionary();
+        	List<RichWord> l=temp.spellCheckText(parole);
+        	s="";
+        	for(RichWord r:l){
+        		if(r.isCorretta()==false && pFalse==false)
+        			pFalse=true;
+        		s+=r.getParola()+" ";
+        	}
+        	txtOut.setText(s);
+        }
+    	
+    	if(pFalse==true){
+    		lblErr.setText("Il testo contiene errori");
+    	}else{
+    		lblErr.setText("Il testo è corretto");
+    	}
+    	
     }
 
     @FXML

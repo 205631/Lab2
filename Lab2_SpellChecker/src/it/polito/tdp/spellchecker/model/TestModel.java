@@ -15,7 +15,7 @@ public class TestModel {
 		List<String> temp= new LinkedList<String>();
 		temp.add("ciao ");
 		temp.add("come ");
-		temp.add("stai");
+		temp.add("stai?");
 		System.out.println(d.spellCheckText(temp));
 		
 	}

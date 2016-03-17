@@ -4,12 +4,7 @@ import java.util.*;
 
 public abstract class Dictionary {
 
-	public List<String> dizionario;
-	
-	
-	public Dictionary() {
-		dizionario= new ArrayList<String>();
-	}
+	public List<String> dizionario= new ArrayList<String>();
 	
 	public void addParola(String s){
 		dizionario.add(s);
@@ -22,7 +17,9 @@ public abstract class Dictionary {
 		List<RichWord> ris=new ArrayList<RichWord>();
 		
 		for(String s:inputTextList){
-	
+			//controllare se le stringhe s hanno dei caratteri di punteggiatura
+			
+			//aggiungo al risultato
 			if(dizionario.contains(s.trim())){
 				ris.add(new RichWord(s.trim(),true));
 			}else{
