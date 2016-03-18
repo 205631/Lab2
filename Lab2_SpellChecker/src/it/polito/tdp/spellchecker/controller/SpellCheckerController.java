@@ -1,5 +1,6 @@
 package it.polito.tdp.spellchecker.controller;
 
+import java.awt.Color;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+
+
 
 public class SpellCheckerController {
 	
@@ -44,6 +49,9 @@ public class SpellCheckerController {
 
     @FXML
     private TextArea txtOut;
+    
+    @FXML
+    private TextFlow txtOutFlow;
 
     @FXML
     private Label lblErr;
@@ -56,13 +64,16 @@ public class SpellCheckerController {
 
     @FXML
     void doClearText(ActionEvent event) {
-    	txtOut.setText("");
+    	//txtOut.setText("");
+    	txtOutFlow.getChildren().clear();
     	txtIn.setText("");
     	
     }
 
     @FXML
     void doSpellCheck(ActionEvent event) {
+    	txtOutFlow.getChildren().clear();
+    	
     	Dictionary temp=cmbLang.getValue();
     	boolean pFalse=false;
     	//prendo il testo e lo divido in stringhe separate dal carattere 
@@ -83,33 +94,61 @@ public class SpellCheckerController {
     	if(temp instanceof ItalianDictionary){
         	temp.loadDictionary();
         	List<RichWord> l=temp.spellCheckText(parole);
-        	s="";
+        	/*s="";
         	for(RichWord r:l){
         		if(r.isCorretta()==false && pFalse==false)
         			pFalse=true;
         		s+=r.getParola()+" ";
+        	}*/
+        	//txtOut.setText(s);
+        	
+        	for(RichWord r:l){
+        		if(r.isCorretta()==false && pFalse==false)
+        			pFalse=true;
+        		if(r.isCorretta()==false){
+        			Text t=new Text(r.getParola()+" ");
+        			t.setFill(javafx.scene.paint.Color.RED);
+        			txtOutFlow.getChildren().add(t);
+        		}else{
+        			Text t=new Text(r.getParola());
+        			txtOutFlow.getChildren().add(t);
+        		}
         	}
-        	txtOut.setText(s);
+
     	}
     	
     	if(temp instanceof EnglishDictionary){
         	temp.loadDictionary();
         	List<RichWord> l=temp.spellCheckText(parole);
-        	s="";
+        	/*s="";
         	for(RichWord r:l){
         		if(r.isCorretta()==false && pFalse==false)
         			pFalse=true;
         		s+=r.getParola()+" ";
         	}
-        	txtOut.setText(s);
+        	txtOut.setText(s);*/
+        	
+        	for(RichWord r:l){
+        		if(r.isCorretta()==false && pFalse==false)
+        			pFalse=true;
+        		if(r.isCorretta()==false){
+        			Text t=new Text(r.getParola()+" ");
+        			t.setFill(javafx.scene.paint.Color.RED);
+        			txtOutFlow.getChildren().add(t);
+        		}else{
+        			Text t=new Text(r.getParola());
+        			txtOutFlow.getChildren().add(t);
+        		}
+        	}
+        	
         }
     	long t1=System.nanoTime();
     	if(pFalse==true){
     		lblErr.setText("Il testo contiene errori");
-    		lblTime.setText("Spell check completed in "+(double)((t1-t0)/1000000000)+" seconds");
+    		lblTime.setText(String.format("Spell check completed in %fs seconds", (t1-t0)/1e9));
     	}else{
     		lblErr.setText("Il testo è corretto");
-    		lblTime.setText("Spell check completed in "+(double)((t1-t0)/1000000000)+" seconds");
+    		lblTime.setText(String.format("Spell check completed in %fs seconds", (t1-t0)/1e9));
     	}
     	
     }
